@@ -4,26 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Selector</title>
-    <style>
-        #videoPlayer {
-            padding-top: 56%;
-            position: relative;
-            display: none; /* Hide by default */
-        }
-        iframe {
-            border: 0;
-            max-width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-        }
-    </style>
 </head>
 <body>
 
-    <h2>Select and Play Video</h2>
+    <h2>Select and Open Video in New Tab</h2>
 
     <!-- Dropdown menu to select video -->
     <label for="videoSelect">Select Video:</label>
@@ -35,23 +19,16 @@
     <!-- Open button -->
     <button onclick="openVideo()">Open</button>
 
-    <!-- Video player div -->
-    <div id="videoPlayer">
-        <iframe id="videoFrame" allowfullscreen="true" allow="encrypted-media"></iframe>
-    </div>
-
     <script>
         function openVideo() {
             const selectedVideo = document.getElementById("videoSelect").value;
-            const videoPlayer = document.getElementById("videoPlayer");
-            const videoFrame = document.getElementById("videoFrame");
 
             if (selectedVideo === "video1") {
-                videoFrame.src = "https://player.vdocipher.com/v2/?otp=20160313versASE323Oe7vVntbjeMJlkusZFCCaLfAeFsknltZvJumwjv1zrOBeY&playbackInfo=eyJ2aWRlb0lkIjoiYzAxYWM0MDk3MmFhNDcxODhiMzdlYzJhOTQwMjE3NzcifQ==";
-                videoPlayer.style.display = "block"; // Show the video player
+                // URL for Video 1
+                const videoUrl = "https://player.vdocipher.com/v2/?otp=20160313versASE323MWQnmMAJvJmClNWIWBU0Nv1e1cDi5cMxZeKqi9s6gJ1Ii2&playbackInfo=eyJ2aWRlb0lkIjoiYzAxYWM0MDk3MmFhNDcxODhiMzdlYzJhOTQwMjE3NzcifQ==";
+                window.open(videoUrl, "_blank"); // Open in a new tab
             } else {
                 alert("Please select a video.");
-                videoPlayer.style.display = "none"; // Hide if no video selected
             }
         }
     </script>
