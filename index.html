@@ -3,72 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Video Selector</title>
+    <style>
+        #videoPlayer {
+            padding-top: 56%;
+            position: relative;
+            display: none; /* Hide by default */
+        }
+        iframe {
+            border: 0;
+            max-width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <div style="text-align:center;">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username (Email)">
-        <input type="password" id="password" placeholder="Password">
-        
-        <select id="videoSelect">
-            <option value="">Select Video</option>
-            <option value="20160313versASE323TpmNlaLHXNx9nQ9JIaAShUKSjT1ruuWzvcPwvEAvM29gHZ,eyJ2aWRlb0lkIjoiYzAxYWM0MDk3MmFhNDcxODhiMzdlYzJhOTQwMjE3NzcifQ==">Video 01</option>
-        </select>
-        
-        <button id="loginButton">Log In</button>
+
+    <h2>Select and Play Video</h2>
+
+    <!-- Dropdown menu to select video -->
+    <label for="videoSelect">Select Video:</label>
+    <select id="videoSelect">
+        <option value="">--Select Video--</option>
+        <option value="video1">Video 1</option>
+    </select>
+
+    <!-- Open button -->
+    <button onclick="openVideo()">Open</button>
+
+    <!-- Video player div -->
+    <div id="videoPlayer">
+        <iframe id="videoFrame" allowfullscreen="true" allow="encrypted-media"></iframe>
     </div>
 
-    <!-- Firebase App and Auth -->
-    <script type="module">
-        // Import Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBJUaMfn2PXWDLjBEbTNjET9IGqOakx-2o",
-            authDomain: "drmtest2-8c62c.firebaseapp.com",
-            projectId: "drmtest2-8c62c",
-            storageBucket: "drmtest2-8c62c.firebasestorage.app",
-            messagingSenderId: "972029358691",
-            appId: "1:972029358691:web:cfe00131d59d63cce17e56",
-            measurementId: "G-16N6J11CNJ"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Login functionality
-        document.getElementById("loginButton").addEventListener("click", async () => {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+    <script>
+        function openVideo() {
             const selectedVideo = document.getElementById("videoSelect").value;
+            const videoPlayer = document.getElementById("videoPlayer");
+            const videoFrame = document.getElementById("videoFrame");
 
-            // Validate inputs
-            if (!username || !password || !selectedVideo) {
-                alert("Please fill all fields.");
-                return;
+            if (selectedVideo === "video1") {
+                videoFrame.src = "https://player.vdocipher.com/v2/?otp=20160313versASE323MWQnmMAJvJmClNWIWBU0Nv1e1cDi5cMxZeKqi9s6gJ1Ii2&playbackInfo=eyJ2aWRlb0lkIjoiYzAxYWM0MDk3MmFhNDcxODhiMzdlYzJhOTQwMjE3NzcifQ==";
+                videoPlayer.style.display = "block"; // Show the video player
+            } else {
+                alert("Please select a video.");
+                videoPlayer.style.display = "none"; // Hide if no video selected
             }
-
-            // Extract OTP and playback info from selected video
-            const [otp, playbackInfo] = selectedVideo.split(',');
-
-            try {
-                // Attempt to log in
-                const userCredential = await signInWithEmailAndPassword(auth, username, password);
-                console.log("Logged in User ID:", userCredential.user.uid);
-
-                // Open the video URL in a new tab
-                const videoURL = `https://player.vdocipher.com/v2/?otp=${otp}&playbackInfo=${playbackInfo}`;
-                window.open(videoURL, '_blank');
-                
-            } catch (error) {
-                console.error("Login failed:", error.message);
-                alert("Login failed: " + error.message);
-            }
-        });
+        }
     </script>
+
 </body>
 </html>
