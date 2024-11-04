@@ -3,35 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Selector</title>
+    <title>Video Player with Dropdown</title>
 </head>
 <body>
 
-    <h2>Select and Open Video in New Tab</h2>
+<h1>Select a Video to Play</h1>
 
-    <!-- Dropdown menu to select video -->
-    <label for="videoSelect">Select Video:</label>
-    <select id="videoSelect">
-        <option value="">--Select Video--</option>
-        <option value="video1">Video 1</option>
-    </select>
+<!-- Dropdown to select the video -->
+<select id="videoDropdown">
+    <option value="" disabled selected>Select a video</option>
+    <option value="video-01">Video 01</option>
+    <!-- Add more options if needed -->
+</select>
 
-    <!-- Open button -->
-    <button onclick="openVideo()">Open</button>
+<!-- Button to load the selected video -->
+<button onclick="playSelectedVideo()">Open</button>
 
-    <script>
-        function openVideo() {
-            const selectedVideo = document.getElementById("videoSelect").value;
+<!-- Div where the video iframe will be embedded -->
+<div id="videoContainer" style="margin-top: 20px;"></div>
 
-            if (selectedVideo === "video1") {
-                // URL for Video 1
-                const videoUrl = "https://player.vdocipher.com/v2/?otp=20160313versASE323MWQnmMAJvJmClNWIWBU0Nv1e1cDi5cMxZeKqi9s6gJ1Ii2&playbackInfo=eyJ2aWRlb0lkIjoiYzAxYWM0MDk3MmFhNDcxODhiMzdlYzJhOTQwMjE3NzcifQ==";
-                window.open(videoUrl, "_blank"); // Open in a new tab
-            } else {
-                alert("Please select a video.");
-            }
-        }
-    </script>
+<!-- Link to the JavaScript file -->
+<script src="script.js"></script>
 
 </body>
 </html>
